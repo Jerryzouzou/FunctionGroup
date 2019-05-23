@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.hard.function.BezierLines.BezierBeginDerivationActivity;
+import com.hard.function.tool.Utils;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Context mContext;
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_f_01:
-
+                Utils.startActivity(mContext, BezierBeginDerivationActivity.class);
                 break;
             case R.id.btn_f_02:
 
@@ -40,7 +43,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void startActivity(Class<?> cls){
-        startActivity(new Intent(this,cls));
-    }
+
 }

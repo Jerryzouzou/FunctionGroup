@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Func</string>
+    <string name="bazier_line">Bazier</string>
 </resources>

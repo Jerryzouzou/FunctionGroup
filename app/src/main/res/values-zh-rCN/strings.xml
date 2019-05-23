@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">功能</string>
+    <string name="bazier_line">贝塞尔曲线</string>
 </resources>

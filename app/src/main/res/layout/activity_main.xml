@@ -16,7 +16,8 @@
             <Button
                 android:id="@+id/btn_f_01"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@string/bazier_line"/>
             <Button
                 android:id="@+id/btn_f_02"
                 android:layout_width="wrap_content"
