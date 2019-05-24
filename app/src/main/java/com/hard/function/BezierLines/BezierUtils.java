@@ -68,11 +68,60 @@ public class BezierUtils {
     }
 
     /**
-     * 动态规划方式计算上面方法贝塞尔曲线的点坐标
+     * 动态规划方式计算上面方法贝塞尔曲线的点坐标（参考下面方法calculateIntermediateLine，比计算中间辅助
+     * 信息多计算一阶，最后那阶就是贝塞尔曲线）
+     * 从高阶到低阶不断进行降阶计算，(order-i)是计算(order-i-1)阶所有的u%的点，然后intermediateList集合，
+     * 计算到最低阶就是对应的贝塞尔曲线的点集合，即intermediateList最后一组orderPointList的最后一条边
+     * pointList就是最终的贝塞尔曲线，即intermediateList.get(i_size-1).get(o_size-1)
      */
-    private static float calculateBezierPointByDp(int type, float u, int k, int pi, List<PointF> controlPointList) {
+    public static List<PointF> calculateBezierPointByDp(List<PointF> controlPointList, int frame) {
+        List<List<List<PointF>>> intermediateList = new ArrayList<>();
+        int order = controlPointList.size() - 1;    //阶数
+        float delta = 1f / frame;   //增长偏量
 
-        return 0;
+        /**
+         * 一阶时没有辅助线，二阶时是一条辅助线，只需计算(order-1)次，当前计算阶数是（order-i）的中间
+         * 阶辅助信息
+         */
+        for (int i = 0; i < order; i++) {
+            List<List<PointF>> orderPointList = new ArrayList<>();
+            /**
+             * 终止条件为每一阶的边的条数，阶数与边数相等
+             * 随着i的增大，即阶数的降低，相应的需要计算的边数对应减少
+             */
+            for (int j = 0; j < order - i; j++) {
+                List<PointF> pointList = new ArrayList<>();
+                for (float u = 0; u <= 1; u+=delta) {
+                    float p1x;
+                    float p1y;
+                    float p2x;
+                    float p2y;
+                    int beforeOrderCurPointIndex = (int) (u * frame);   // 上一阶中，对应的当前帧的下标
+
+                    if (intermediateList.size() == 0){
+                        p1x = controlPointList.get(j).x;
+                        p1y = controlPointList.get(j).y;
+                        p2x = controlPointList.get(j+1).x;
+                        p2y = controlPointList.get(j+1).y;
+                    }else {
+                        //获取上一阶辅助线1 u位置的点
+                        p1x = intermediateList.get(i - 1).get(j).get(beforeOrderCurPointIndex).x;
+                        p1y = intermediateList.get(i - 1).get(j).get(beforeOrderCurPointIndex).y;
+                        //获取上一阶辅助线2 u位置的点
+                        p2x = intermediateList.get(i - 1).get(j+1).get(beforeOrderCurPointIndex).x;
+                        p2y = intermediateList.get(i - 1).get(j+1).get(beforeOrderCurPointIndex).y;
+                    }
+                    float p0x = (1 - u)*p1x + u*p2x;
+                    float p0y = (1 - u)*p1y + u*p2y;
+                    pointList.add(new PointF(p0x, p0y));
+                }
+                orderPointList.add(pointList);
+            }
+            intermediateList.add(orderPointList);
+        }
+        int i_size = intermediateList.size();
+        int o_size = intermediateList.get(i_size - 1).size();
+        return intermediateList.get(i_size-1).get(o_size-1);
     }
 
     /**
@@ -81,8 +130,6 @@ public class BezierUtils {
      *  中间级 orderPointList 保存的是当前阶数（order-i）所有边此次保存好的pointList
      *  最外级 intermediateList 保存的是每一阶所需要的辅助信息，例如intermediateList[0]是order阶所需的
      *  (order-1)阶的贝塞尔曲线所有辅助信息
-     *  intermediateList最后一组orderPointList的最后一条边pointList就是最终的贝塞尔曲线，即
-     *  intermediateList.get(i_size-1).get(o_size-1)
      * @param controlPointList 控制点集合
      * @param frame 帧数，即一条边上有多少个点
      * @return intermediateList 返回中间阶级具体信息

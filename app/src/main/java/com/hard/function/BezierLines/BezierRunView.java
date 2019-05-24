@@ -266,7 +266,11 @@ public class BezierRunView extends GridCoordinateCustomBaseView {
     public void start(){
         mBezierPath.reset();    //启动前先重置
         mState = RUNNING;
-        mBezierPointList = BezierUtils.buildBezierPoint(mControlPointList, FRAME);  //计算贝塞尔曲线的点
+        if(mControlPointList.size() > 5){
+            mBezierPointList = BezierUtils.calculateBezierPointByDp(mControlPointList, FRAME);  //动态规划计算贝塞尔曲线的点
+        }else {
+            mBezierPointList = BezierUtils.buildBezierPoint(mControlPointList, FRAME);  //计算贝塞尔曲线的点
+        }
         prepareBezierPath();    //将贝塞尔曲线的点串成path
         if(isShowReduceOrderLine){  //是否计算中间阶级辅助线的点
             mIntermediateList.clear();
