@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -40,7 +39,8 @@ public class BezierRunView extends GridCoordinateCustomBaseView {
     // 帧数：1000，即1000个点来绘制一条线
     private static final int FRAME = 1000;
     // handler 事件
-    private static final int HANDLE_EVENT = 12580;
+    private static final int HANDLE_EVENT = 0x101;
+    private static final int HANDLE_CLEAN = 0x102;
 
     //贝塞尔曲线的路径
     private Path mBezierPath;
@@ -223,12 +223,12 @@ public class BezierRunView extends GridCoordinateCustomBaseView {
                             POINT_RADIO_WIDTH, mPointPaint);
                 }
             }
-            /**
-             * 播放完并且不循环播放的时候重置按键信息
-            if (mCurRatio == 1 && !mIsLoop && getContext() instanceof BezierActivity) {
-                ((BezierActivity) getContext()).resetPlayBtn();
+
+            //播放完并且不循环播放的时候重置按键信息
+            if(mCurRatio==1 && !isLoop && getContext() instanceof BezierBeginDerivationActivity){
+                ((BezierBeginDerivationActivity) getContext()).resetPlayBtn();
             }
-             */
+
             mPointPaint.setColor(getBezierLineColor());
             canvas.drawCircle(mCurBezierPoint.x, mCurBezierPoint.y, POINT_RADIO_WIDTH, mPointPaint);
             mHandler.sendEmptyMessage(HANDLE_EVENT);
@@ -274,11 +274,16 @@ public class BezierRunView extends GridCoordinateCustomBaseView {
         prepareBezierPath();    //将贝塞尔曲线的点串成path
         if(isShowReduceOrderLine){  //是否计算中间阶级辅助线的点
             mIntermediateList.clear();
+            mIntermediateDrawList.clear();
             mIntermediateList = BezierUtils.calculateIntermediateLine(mControlPointList, FRAME);
         }
         mCurRatio = 0;
         setCurBezierPoint(mBezierPointList.get(0));
         invalidate();
+    }
+
+    public void clean(){
+       mHandler.sendEmptyMessage(HANDLE_CLEAN);
     }
 
     /**
@@ -431,7 +436,7 @@ public class BezierRunView extends GridCoordinateCustomBaseView {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (mState != PREPARE){ // 没有在准备状态不能进行操作
-            //return true;
+            return true;
         }
 
         float x = event.getX();
@@ -526,6 +531,8 @@ public class BezierRunView extends GridCoordinateCustomBaseView {
                 int ratio = (int) ((((float)mCurFrame/bezierPoint.size())*100)*100f);
                 bezierRunView.setCurRatio(ratio>1 ? 1 : ratio);
                 bezierRunView.invalidate();
+            }else if(msg.what == HANDLE_CLEAN){
+                mCurFrame = 0;
             }
         }
     }

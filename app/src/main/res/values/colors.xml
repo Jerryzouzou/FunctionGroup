@@ -12,4 +12,6 @@
     <color name="colorOrange">#efb336</color>
     <color name="colorRed">#d81e06</color>
     <color name="colorLowBlue">#1296db</color>
+
+    <color name="color_gray_alpha">#88333333</color>
 </resources>
