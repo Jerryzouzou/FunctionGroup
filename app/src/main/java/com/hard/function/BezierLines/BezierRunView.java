@@ -349,10 +349,6 @@ public class BezierRunView extends GridCoordinateCustomBaseView {
         return mLineColor.get(index % mLineColor.size());
     }
 
-    private int getColor(String color){
-        return Color.parseColor(color);
-    }
-
     public int getTouchRegionWidth() {
         return mTouchRegionWidth;
     }

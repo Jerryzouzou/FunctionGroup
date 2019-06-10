@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.View;
 
 import com.hard.function.BezierLines.BezierBeginDerivationActivity;
+import com.hard.function.BezierLines.BezierRun2CircleActivity;
+import com.hard.function.BezierLines.BezierRun2CircleView;
+import com.hard.function.tool.UIUtils;
 import com.hard.function.tool.Utils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Utils.startActivity(mContext, BezierBeginDerivationActivity.class);
                 break;
             case R.id.btn_f_02:
-
+                Utils.startActivity(mContext, BezierRun2CircleActivity.class);
                 break;
             case R.id.btn_f_03:
 

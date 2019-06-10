@@ -19,6 +19,7 @@
         </activity>
 
         <activity android:name=".BezierLines.BezierBeginDerivationActivity"/>
+        <activity android:name=".BezierLines.BezierRun2CircleActivity"/>
     </application>
 
 </manifest>
