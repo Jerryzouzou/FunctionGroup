@@ -42,8 +42,8 @@ public abstract class GridCoordinateCustomBaseView extends View {
     // 字体大小
     private float mTextSize;
 
-    private float mWidth;
-    private float mHeight;
+    public float mWidth;
+    public float mHeight;
 
     public GridCoordinateCustomBaseView(Context context) {
         super(context);

@@ -119,7 +119,7 @@ public class BezierRun2CircleView extends GridCoordinateCustomBaseView {
     @Override
     protected void onDraw(Canvas canvas) {
         drawCoordinateGrid(canvas);
-        canvas.translate(screenWidth/2, screenHeight/2);    //挪到原点(0,0)为屏幕中间
+        canvas.translate(mWidth/2, mHeight/2);
         bezierLinePath.reset();
         for (int i = 0; i < 4; i++) {
             if (i == 0){

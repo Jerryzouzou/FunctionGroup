@@ -2,6 +2,8 @@ package com.hard.function.tool;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
@@ -58,6 +60,23 @@ public class UIUtils {
             result = Resources.getSystem().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public static Paint getFillPaint(int color){
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(color);
+        return paint;
+    }
+
+    public static Paint getStrokePaint(Context context, float lineWidth, int color){
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(lineWidth);
+        paint.setColor(color);
+        return paint;
     }
 
 }
