@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 
 /**
  * @author Jerry Lai on 2019/06/12
+ * 自定义可操作DIY的贝塞尔曲线形成的view
  */
 public class DIYBezierView extends GridCoordinateCustomBaseView {
 

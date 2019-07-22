@@ -21,6 +21,7 @@
         <activity android:name=".BezierLines.BezierBeginDerivationActivity"/>
         <activity android:name=".BezierLines.BezierRun2CircleActivity"/>
         <activity android:name=".BezierLines.BezierDIYActivity"/>
+        <activity android:name=".BezierLines.BezierHeartViewSpringActivity"/>
     </application>
 
 </manifest>

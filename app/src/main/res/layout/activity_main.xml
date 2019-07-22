@@ -28,6 +28,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bazier_diy"/>
+            <Button
+                android:id="@+id/btn_f_04"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bazier_heart"/>
         </LinearLayout>
     </HorizontalScrollView>
 
