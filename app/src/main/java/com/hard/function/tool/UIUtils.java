@@ -79,4 +79,8 @@ public class UIUtils {
         return paint;
     }
 
+    public static int getColor(String color){
+        return Color.parseColor(color);
+    }
+
 }

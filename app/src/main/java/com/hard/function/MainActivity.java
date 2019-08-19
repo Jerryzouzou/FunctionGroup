@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.hard.function.BezierLines.BezierBeginDerivationActivity;
@@ -12,13 +13,14 @@ import com.hard.function.BezierLines.BezierDIYActivity;
 import com.hard.function.BezierLines.BezierHeartViewSpringActivity;
 import com.hard.function.BezierLines.BezierRun2CircleActivity;
 import com.hard.function.BezierLines.BezierRun2CircleView;
+import com.hard.function.BezierLines.BezierStickDotViewActivity;
 import com.hard.function.tool.UIUtils;
 import com.hard.function.tool.Utils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Context mContext;
-    private int btnId[] = {R.id.btn_f_01, R.id.btn_f_02, R.id.btn_f_03, R.id.btn_f_04};
+    private int btnId[] = {R.id.btn_f_01, R.id.btn_f_02, R.id.btn_f_03, R.id.btn_f_04, R.id.btn_f_05};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_f_04:
                 Utils.startActivity(mContext, BezierHeartViewSpringActivity.class);
+                break;
+            case R.id.btn_f_05:
+                Utils.startActivity(mContext, BezierStickDotViewActivity.class);
                 break;
         }
     }

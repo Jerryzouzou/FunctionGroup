@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.hard.function.common.GridCoordinateCustomBaseView;
 import com.hard.function.tool.UIUtils;
