@@ -32,6 +32,8 @@ public class BezierBeginDerivationActivity extends AppCompatActivity implements 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
+
         setContentView(R.layout.activity_bezier_begin_derivation);
 
         findView();
