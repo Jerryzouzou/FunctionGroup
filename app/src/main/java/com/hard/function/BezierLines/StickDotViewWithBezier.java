@@ -66,7 +66,7 @@ public class StickDotViewWithBezier extends AppCompatTextView {
 
         private Path mPath;
         private Paint mPaint;
-        private PointF mDragPoint, mStickyPonit, mControlPonit; //拖曳圆的圆点、固定圆的圆点、贝塞尔曲线控制点
+        private PointF mDragPoint, mStickyPoint, mControlPoint; //拖曳圆的圆点、固定圆的圆点、贝塞尔曲线控制点
 
         private float mDragDistance;    //拖曳的距离
         private float mMaxDistance = UIUtils.dip2px(100);     //最大拖曳距离，超过时dismiss消失
@@ -100,7 +100,7 @@ public class StickDotViewWithBezier extends AppCompatTextView {
             mPath = new Path();
             mPaint = UIUtils.getFillPaint(Color.RED);
             mDragPoint = new PointF();
-            mStickyPonit = new PointF();
+            mStickyPoint = new PointF();
             mState = STATE_INIT;
             mBitmaps = new Bitmap[mExplodeRes.length];
             for (int i = 0; i < mExplodeRes.length; i++) {
@@ -112,21 +112,21 @@ public class StickDotViewWithBezier extends AppCompatTextView {
         protected void onDraw(Canvas canvas) {
             if(isInRange() && mState==STATE_DRAG){
                 //绘制固定小圆
-                canvas.drawCircle(mStickyPonit.x, mStickyPonit.y, mStickyRadius, mPaint);
+                canvas.drawCircle(mStickyPoint.x, mStickyPoint.y, mStickyRadius, mPaint);
 
-                Float slope = Utils.getLineSlope(mDragPoint, mStickyPonit); //两圆心连线的斜率
-                //根据斜率分别获取两圆的交点
-                PointF[] stickyPoints = Utils.getIntersectionPoints(mStickyPonit, mStickyRadius, slope);
+                Float slope = Utils.getLineSlope(mDragPoint, mStickyPoint); //两圆心连线的斜率
+                //根据斜率分别获取两圆的交点, 分别交点的直径与两圆心的连线垂直
+                PointF[] stickyPoints = Utils.getIntersectionPoints(mStickyPoint, mStickyRadius, slope);
                 mDragRadius = (int) (Math.min(width, height)/2);
                 PointF[] dragPoints = Utils.getIntersectionPoints(mDragPoint, mDragRadius, slope);
                 //两圆心的中点作为画二阶贝塞尔曲线控制点的第二点
-                mControlPonit = Utils.getMiddlePoint(mDragPoint, mStickyPonit);
+                mControlPoint = Utils.getMiddlePoint(mDragPoint, mStickyPoint);
 
                 mPath.reset();
                 mPath.moveTo(stickyPoints[0].x, stickyPoints[0].y);
-                mPath.quadTo(mControlPonit.x, mControlPonit.y, dragPoints[0].x, dragPoints[0].y);
+                mPath.quadTo(mControlPoint.x, mControlPoint.y, dragPoints[0].x, dragPoints[0].y);
                 mPath.lineTo(dragPoints[1].x, dragPoints[1].y);
-                mPath.quadTo(mControlPonit.x, mControlPonit.y, stickyPoints[1].x, stickyPoints[1].y);
+                mPath.quadTo(mControlPoint.x, mControlPoint.y, stickyPoints[1].x, stickyPoints[1].y);
                 mPath.lineTo(stickyPoints[0].x, stickyPoints[0].y);
                 canvas.drawPath(mPath, mPaint);
             }
@@ -188,7 +188,7 @@ public class StickDotViewWithBezier extends AppCompatTextView {
         private void startResetAnimator(){
             if (mState == STATE_DRAG){
                 ValueAnimator animator = ValueAnimator.ofObject(new PointEvaluator(),
-                        new PointF(mDragPoint.x, mDragPoint.y), new PointF(mStickyPonit.x, mStickyPonit.y));
+                        new PointF(mDragPoint.x, mDragPoint.y), new PointF(mStickyPoint.x, mStickyPoint.y));
                 animator.setDuration(500);
                 animator.setInterpolator(new TimeInterpolator() {
                     @Override
@@ -215,7 +215,7 @@ public class StickDotViewWithBezier extends AppCompatTextView {
                 animator.start();
             }else {
                 //还原回固定点
-                mDragPoint.set(mStickyPonit);
+                mDragPoint.set(mStickyPoint);
                 invalidate();
                 if(mDragStatusListener != null){
                     mDragStatusListener.onRestore();
@@ -227,10 +227,10 @@ public class StickDotViewWithBezier extends AppCompatTextView {
          * 设置固定圆的圆心和半径
          */
         public void setStickyPoint(float stickyX, float stickyY, float touchX, float touchY){
-            mStickyPonit.set(stickyX, stickyY);
+            mStickyPoint.set(stickyX, stickyY);
             mDragPoint.set(touchX, touchY);
             //圆心距，就是拖曳的距离
-            mDragDistance = Utils.getTwoPointDistance(mDragPoint, mStickyPonit);
+            mDragDistance = Utils.getTwoPointDistance(mDragPoint, mStickyPoint);
             if(mDragDistance < mMaxDistance){
                 //如果拖拽距离小于规定最大距离，则固定的圆应该越来越小，这样看着才符合实际
                 mStickyRadius = (int)((mDefaultRadius-mDragDistance/10)<10 ? 10 : (mDefaultRadius-mDragDistance/10));
@@ -245,7 +245,7 @@ public class StickDotViewWithBezier extends AppCompatTextView {
          */
         public void setDragViewLocation(float x, float y){
             mDragPoint.set(x, y);
-            mDragDistance = Utils.getTwoPointDistance(mDragPoint, mStickyPonit);
+            mDragDistance = Utils.getTwoPointDistance(mDragPoint, mStickyPoint);
             if(isInRange()){
                 mStickyRadius = (int)((mDefaultRadius-mDragDistance/10)<10 ? 10 : (mDefaultRadius-mDragDistance/10));
             }else {
