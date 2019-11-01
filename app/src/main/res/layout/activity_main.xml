@@ -38,6 +38,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bazier_stick_dot"/>
+            <Button
+                android:id="@+id/btn_f_06"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bazier_boat_wave"/>
         </LinearLayout>
     </HorizontalScrollView>
 

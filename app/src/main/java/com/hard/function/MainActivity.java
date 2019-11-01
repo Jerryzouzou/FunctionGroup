@@ -14,13 +14,15 @@ import com.hard.function.BezierLines.BezierHeartViewSpringActivity;
 import com.hard.function.BezierLines.BezierRun2CircleActivity;
 import com.hard.function.BezierLines.BezierRun2CircleView;
 import com.hard.function.BezierLines.BezierStickDotViewActivity;
+import com.hard.function.BezierLines.BoatBezierWaveActivity;
 import com.hard.function.tool.UIUtils;
 import com.hard.function.tool.Utils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Context mContext;
-    private int btnId[] = {R.id.btn_f_01, R.id.btn_f_02, R.id.btn_f_03, R.id.btn_f_04, R.id.btn_f_05};
+    private int btnId[] = {R.id.btn_f_01, R.id.btn_f_02, R.id.btn_f_03, R.id.btn_f_04, R.id.btn_f_05,
+        R.id.btn_f_06};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_f_05:
                 Utils.startActivity(mContext, BezierStickDotViewActivity.class);
+                break;
+            case R.id.btn_f_06:
+                Utils.startActivity(mContext, BoatBezierWaveActivity.class);
                 break;
         }
     }

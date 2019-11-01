@@ -23,6 +23,7 @@
         <activity android:name=".BezierLines.BezierDIYActivity"/>
         <activity android:name=".BezierLines.BezierHeartViewSpringActivity"/>
         <activity android:name=".BezierLines.BezierStickDotViewActivity" />
+        <activity android:name=".BezierLines.BoatBezierWaveActivity" />
     </application>
 
 </manifest>

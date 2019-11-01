@@ -5,6 +5,7 @@
     <string name="bazier_diy">BazierDIY</string>
     <string name="bazier_heart">HeartView</string>
     <string name="bazier_stick_dot">StickDot</string>
+    <string name="bazier_boat_wave">Boat</string>
     <string name="rate">rate(%1$d)</string>
     <string name="order">order(%1$d)</string>
     <string name="ratio">ratio (%1$s)</string>
