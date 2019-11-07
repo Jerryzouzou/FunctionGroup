@@ -24,6 +24,7 @@
         <activity android:name=".BezierLines.BezierHeartViewSpringActivity"/>
         <activity android:name=".BezierLines.BezierStickDotViewActivity" />
         <activity android:name=".BezierLines.BoatBezierWaveActivity" />
+        <activity android:name=".PathMeasure.PathMeasureGetPosTanActivity" />
     </application>
 
 </manifest>

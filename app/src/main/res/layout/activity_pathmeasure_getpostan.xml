@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.hard.function.BezierLines.BoatWaveWithBezierView
-        android:id="@+id/boat_wave_view"
+    <com.hard.function.PathMeasure.PathMeasureGetPosTanView
+        android:id="@+id/get_pos_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"/>
