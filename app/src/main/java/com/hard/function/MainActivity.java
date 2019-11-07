@@ -17,6 +17,8 @@ import com.hard.function.BezierLines.BezierStickDotViewActivity;
 import com.hard.function.BezierLines.BoatBezierWaveActivity;
 import com.hard.function.PathMeasure.PathMeasureGetPosTanActivity;
 import com.hard.function.PathMeasure.PathMeasureGetPosTanView;
+import com.hard.function.PathMeasure.PathMeasureGetSegmentActivity;
+import com.hard.function.PathMeasure.PathMeasureGetSegmentView;
 import com.hard.function.tool.UIUtils;
 import com.hard.function.tool.Utils;
 
@@ -64,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_f_07:
                 Utils.startActivity(mContext, PathMeasureGetPosTanActivity.class);
+                break;
+            case R.id.btn_f_08:
+                Utils.startActivity(mContext, PathMeasureGetSegmentActivity.class);
                 break;
         }
     }

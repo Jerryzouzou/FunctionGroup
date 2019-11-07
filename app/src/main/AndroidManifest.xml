@@ -25,6 +25,7 @@
         <activity android:name=".BezierLines.BezierStickDotViewActivity" />
         <activity android:name=".BezierLines.BoatBezierWaveActivity" />
         <activity android:name=".PathMeasure.PathMeasureGetPosTanActivity" />
+        <activity android:name=".PathMeasure.PathMeasureGetSegmentActivity" />
     </application>
 
 </manifest>
